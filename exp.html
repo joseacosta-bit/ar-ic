@@ -1,0 +1,447 @@
+<!--
+CONFIRMATION: NEITHER Mermaid JS NOR SVG were used anywhere in this output.
+PALETTE: Cyberpunk Vibrant (Deep Space Black #0F172A, Electric Cyan #06B6D4, Neon Purple #8B5CF6, Hot Magenta #EC4899)
+NARRATIVE PLAN:
+1. Executive Summary: Hook the reader, outline the core constraints (5-6 users, HUD glasses, gestures, 500 pax/2 days).
+2. Hardware Analysis: Compare top 3 AR glasses (Magic Leap 2, XREAL Ultra, RayNeo X2) using a Radar chart (Goal: Compare).
+3. Custom Development Feasibility: Timeline using HTML/CSS (Goal: Organize) and Cost Breakdown using Donut Chart (Goal: Compare composition).
+4. Event Logistics: Math breakdown and Bar Chart showing throughput capacity vs target (Goal: Inform/Compare).
+CHART SELECTIONS:
+- Hardware Comparison -> Goal: Compare multiple variables -> Radar Chart (Chart.js, Canvas rendering).
+- Budget Breakdown -> Goal: Show composition -> Donut Chart (Chart.js, Canvas rendering).
+- Attendee Throughput -> Goal: Compare categories (Target vs Capacity) -> Bar Chart (Chart.js, Canvas rendering).
+- Dev Timeline -> Goal: Change over time/Process -> HTML/CSS Timeline (Structured elements, No SVG, No Mermaid).
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Experience Room 2027: Strategy & Feasibility Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #F8FAFC;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .timeline-node {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #06B6D4;
+            display: inline-block;
+            position: relative;
+            z-index: 10;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 12px;
+            left: 24px;
+            right: -24px;
+            height: 2px;
+            background-color: rgba(6, 182, 212, 0.3);
+            z-index: 0;
+        }
+        @media (max-width: 767px) {
+            .timeline-line {
+                width: 2px;
+                height: 100%;
+                top: 24px;
+                left: 11px;
+                right: auto;
+            }
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #06B6D4, #8B5CF6, #EC4899);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-cyan-500 selection:text-white">
+
+    <div class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 z-50"></div>
+
+    <header class="pt-20 pb-12 px-6 max-w-7xl mx-auto text-center">
+        <h3 class="text-cyan-400 font-semibold tracking-widest uppercase text-sm mb-4">February 2027 Conference</h3>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-gradient tracking-tight">AR Experience Room Strategy</h1>
+        <p class="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+            A comprehensive analysis for deploying a 5-6 player, HUD-based, gesture-controlled Augmented Reality activation for 500 attendees.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pb-24 space-y-20">
+
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="glass-card p-6 flex flex-col items-center justify-center text-center">
+                <span class="text-4xl mb-2">&#128101;</span>
+                <h4 class="text-sm text-slate-400 uppercase font-semibold">Total Event Pax</h4>
+                <p class="text-3xl font-bold text-white mt-1">1,500</p>
+            </div>
+            <div class="glass-card p-6 flex flex-col items-center justify-center text-center border-b-4 border-b-cyan-400">
+                <span class="text-4xl mb-2">&#127919;</span>
+                <h4 class="text-sm text-slate-400 uppercase font-semibold">Target Traffic</h4>
+                <p class="text-3xl font-bold text-cyan-400 mt-1">500</p>
+            </div>
+            <div class="glass-card p-6 flex flex-col items-center justify-center text-center border-b-4 border-b-purple-500">
+                <span class="text-4xl mb-2">&#128083;</span>
+                <h4 class="text-sm text-slate-400 uppercase font-semibold">Concurrent Users</h4>
+                <p class="text-3xl font-bold text-purple-400 mt-1">5 to 6</p>
+            </div>
+            <div class="glass-card p-6 flex flex-col items-center justify-center text-center border-b-4 border-b-pink-500">
+                <span class="text-4xl mb-2">&#8986;</span>
+                <h4 class="text-sm text-slate-400 uppercase font-semibold">Event Duration</h4>
+                <p class="text-3xl font-bold text-pink-400 mt-1">2 Days</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="mb-10 text-center md:text-left">
+                <h2 class="text-3xl font-bold mb-4">Hardware Candidates</h2>
+                <p class="text-slate-400 max-w-3xl">
+                    To meet the requirement of lightweight wearable glasses (no bulky VR goggles) with Heads-Up Display (HUD) and gesture controls, we have isolated three enterprise-grade market leaders projected for optimal availability in early 2027.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-cyan-400 mb-2">Magic Leap 2</h3>
+                    <p class="text-3xl font-bold mb-4">$3,299 <span class="text-sm font-normal text-slate-400">/ unit</span></p>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-2">&#10003;</span> Best-in-class Field of View (70&deg;)</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-2">&#10003;</span> Flawless spatial multi-user sync</li>
+                        <li class="flex items-start"><span class="text-red-400 mr-2">&#10005;</span> Highest cost barrier</li>
+                        <li class="flex items-start"><span class="text-yellow-400 mr-2">&#9888;</span> Requires wired compute puck</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 border border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.3)] transform scale-105">
+                    <div class="absolute -top-3 right-4 bg-cyan-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Recommended</div>
+                    <h3 class="text-xl font-bold text-purple-400 mb-2">XREAL Ultra</h3>
+                    <p class="text-3xl font-bold mb-4">$699 <span class="text-sm font-normal text-slate-400">/ unit</span></p>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-2">&#10003;</span> Lightweight sunglasses form factor</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-2">&#10003;</span> Native 6DoF & hand tracking cameras</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-2">&#10003;</span> Excellent cost-to-performance ratio</li>
+                        <li class="flex items-start"><span class="text-yellow-400 mr-2">&#9888;</span> Requires paired Android phone</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-pink-400 mb-2">RayNeo X2 Ent.</h3>
+                    <p class="text-3xl font-bold mb-4">$899 <span class="text-sm font-normal text-slate-400">/ unit</span></p>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start"><span class="text-green-400 mr-2">&#10003;</span> Fully standalone (No puck/phone)</li>
+                        <li class="flex items-start"><span class="text-green-400 mr-2">&#10003;</span> Built-in simple gesture controls</li>
+                        <li class="flex items-start"><span class="text-red-400 mr-2">&#10005;</span> Smaller Field of View</li>
+                        <li class="flex items-start"><span class="text-red-400 mr-2">&#10005;</span> Less robust multi-user mapping</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 md:p-10">
+                <h3 class="text-xl font-bold mb-6 text-center">Capability Assessment Matrix</h3>
+                <div class="chart-container">
+                    <canvas id="hardwareRadarChart"></canvas>
+                </div>
+                <p class="text-center text-sm text-slate-400 mt-6">
+                    <strong>Visualization:</strong> Radar chart comparing hardware across key project determinants. XREAL Ultra offers the most balanced profile for high-throughput, customized multi-user events.
+                </p>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold mb-4">Event Logistics & Throughput</h2>
+                <p class="text-slate-400 mb-6">
+                    Processing 400-500 attendees through an active AR experience over two days requires strict timeline management and redundant hardware. We must calculate maximum theoretical capacity to ensure our target is feasible without creating massive bottlenecks.
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="bg-slate-800 p-4 rounded-lg flex justify-between items-center">
+                        <span class="text-slate-300">Total Event Time</span>
+                        <span class="font-bold text-cyan-400">16 Hours (960 mins)</span>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg flex justify-between items-center">
+                        <span class="text-slate-300">Session Duration</span>
+                        <span class="font-bold text-purple-400">10 mins (incl. onboarding)</span>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg flex justify-between items-center">
+                        <span class="text-slate-300">Simultaneous Users</span>
+                        <span class="font-bold text-pink-400">6 Users per session</span>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg flex justify-between items-center border border-cyan-500 border-opacity-50">
+                        <span class="text-white font-semibold">Max Theoretical Capacity</span>
+                        <span class="font-bold text-xl text-white">576 Attendees</span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-400 border-l-4 border-cyan-500 pl-4">
+                    <strong>Hardware Recommendation:</strong> Procure <strong>10 total units</strong>. 6 active units for the live session, plus 4 backups continuously charging and being sanitized to guarantee zero downtime between 10-minute rotations.
+                </p>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-bold mb-6 text-center">Traffic Goals vs. Capacity</h3>
+                <div class="chart-container h-80">
+                    <canvas id="throughputBarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="mb-10 text-center md:text-left">
+                <h2 class="text-3xl font-bold mb-4">Custom Development & Budget</h2>
+                <p class="text-slate-400 max-w-3xl">
+                    Creating a synchronized, localized multiplayer AR environment requires a specialized development pipeline using tools like Unity, ARFoundation, and a spatial anchor service (e.g., Azure Spatial Anchors) to ensure all 6 users see the exact same holograms in the exact same physical space.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <div class="lg:col-span-7 glass-card p-8">
+                    <h3 class="text-xl font-bold mb-8">5-Month Feasibility Timeline</h3>
+                    <div class="flex flex-col md:flex-row justify-between relative pt-4 pb-8 md:pb-4 md:px-4">
+                        <div class="relative w-full md:w-1/5 mb-8 md:mb-0 pl-8 md:pl-0">
+                            <div class="timeline-node shadow-[0_0_10px_#06B6D4]"></div>
+                            <div class="timeline-line hidden md:block"></div>
+                            <div class="timeline-line block md:hidden"></div>
+                            <h4 class="font-bold text-white mt-0 md:mt-4 text-lg absolute top-0 md:relative md:top-auto left-10 md:left-0">Month 1</h4>
+                            <p class="text-sm text-slate-400 mt-1 absolute top-6 md:relative md:top-auto left-10 md:left-0">UX & 3D Prototyping</p>
+                        </div>
+                        <div class="relative w-full md:w-1/5 mb-8 md:mb-0 pl-8 md:pl-0">
+                            <div class="timeline-node shadow-[0_0_10px_#06B6D4]"></div>
+                            <div class="timeline-line hidden md:block"></div>
+                            <div class="timeline-line block md:hidden"></div>
+                            <h4 class="font-bold text-white mt-0 md:mt-4 text-lg absolute top-0 md:relative md:top-auto left-10 md:left-0">Month 2</h4>
+                            <p class="text-sm text-slate-400 mt-1 absolute top-6 md:relative md:top-auto left-10 md:left-0">Asset & Core Logic</p>
+                        </div>
+                        <div class="relative w-full md:w-1/5 mb-8 md:mb-0 pl-8 md:pl-0">
+                            <div class="timeline-node shadow-[0_0_10px_#06B6D4]"></div>
+                            <div class="timeline-line hidden md:block"></div>
+                            <div class="timeline-line block md:hidden"></div>
+                            <h4 class="font-bold text-white mt-0 md:mt-4 text-lg absolute top-0 md:relative md:top-auto left-10 md:left-0">Month 3</h4>
+                            <p class="text-sm text-slate-400 mt-1 absolute top-6 md:relative md:top-auto left-10 md:left-0">Multiplayer Sync & Gestures</p>
+                        </div>
+                        <div class="relative w-full md:w-1/5 mb-8 md:mb-0 pl-8 md:pl-0">
+                            <div class="timeline-node shadow-[0_0_10px_#06B6D4]"></div>
+                            <div class="timeline-line hidden md:block" style="background-color: transparent;"></div>
+                            <div class="timeline-line block md:hidden" style="background-color: transparent;"></div>
+                            <h4 class="font-bold text-white mt-0 md:mt-4 text-lg absolute top-0 md:relative md:top-auto left-10 md:left-0">Month 4</h4>
+                            <p class="text-sm text-slate-400 mt-1 absolute top-6 md:relative md:top-auto left-10 md:left-0">QA & Hardware Mapping</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 glass-card p-6 flex flex-col items-center">
+                    <h3 class="text-xl font-bold mb-2 w-full text-center">Estimated Budget Allocation</h3>
+                    <p class="text-3xl font-bold text-white mb-4 w-full text-center">~$105,000</p>
+                    <div class="chart-container w-full h-64 flex-grow">
+                        <canvas id="budgetDonutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+        <p>&copy; 2026 Innovation Strategy Team. Prepared for Feb 2027 Conference Planning.</p>
+    </footer>
+
+    <script>
+        function wrapLabel(label) {
+            if (label.length <= 16) return label;
+            let words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (let i = 0; i < words.length; i++) {
+                if ((currentLine + words[i]).length > 16) {
+                    if (currentLine.length > 0) {
+                        lines.push(currentLine.trim());
+                        currentLine = words[i] + ' ';
+                    } else {
+                        lines.push(words[i]);
+                        currentLine = '';
+                    }
+                } else {
+                    currentLine += words[i] + ' ';
+                }
+            }
+            if (currentLine.trim().length > 0) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        }
+
+        const commonTooltipConfig = {
+            plugins: {
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    titleColor: '#06B6D4',
+                    bodyColor: '#F8FAFC',
+                    borderColor: 'rgba(6, 182, 212, 0.3)',
+                    borderWidth: 1,
+                    padding: 12,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            } else {
+                                return label;
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    labels: { color: '#94A3B8', font: { family: 'Inter' } }
+                }
+            },
+            maintainAspectRatio: false,
+            responsive: true
+        };
+
+        const radarLabelsRaw = ["Cost Efficiency", "Field of View", "Wearable Comfort", "Gesture Tracking", "Multi-user Sync Engine"];
+        const radarLabels = radarLabelsRaw.map(wrapLabel);
+
+        const ctxRadar = document.getElementById('hardwareRadarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: radarLabels,
+                datasets: [
+                    {
+                        label: 'Magic Leap 2',
+                        data: [2, 10, 6, 9, 10],
+                        backgroundColor: 'rgba(236, 72, 153, 0.2)',
+                        borderColor: '#EC4899',
+                        pointBackgroundColor: '#EC4899',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'XREAL Ultra',
+                        data: [8, 7, 8, 8, 8],
+                        backgroundColor: 'rgba(6, 182, 212, 0.3)',
+                        borderColor: '#06B6D4',
+                        pointBackgroundColor: '#06B6D4',
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'RayNeo X2',
+                        data: [9, 5, 9, 6, 5],
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        borderColor: '#8B5CF6',
+                        pointBackgroundColor: '#8B5CF6',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                ...commonTooltipConfig,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(148, 163, 184, 0.2)' },
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        pointLabels: { color: '#E2E8F0', font: { size: 11, family: 'Inter' } },
+                        ticks: { display: false, min: 0, max: 10 }
+                    }
+                }
+            }
+        });
+
+        const barLabelsRaw = ["Overall Conference Total", "Experience Room Target", "Maximum System Capacity"];
+        const barLabels = barLabelsRaw.map(wrapLabel);
+
+        const ctxBar = document.getElementById('throughputBarChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: barLabels,
+                datasets: [{
+                    label: 'Number of Attendees',
+                    data: [1500, 500, 576],
+                    backgroundColor: [
+                        'rgba(148, 163, 184, 0.5)',
+                        '#8B5CF6',
+                        '#06B6D4'
+                    ],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                ...commonTooltipConfig,
+                plugins: {
+                    ...commonTooltipConfig.plugins,
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(148, 163, 184, 0.1)' },
+                        ticks: { color: '#94A3B8' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#E2E8F0', font: { size: 11 } }
+                    }
+                }
+            }
+        });
+
+        const donutLabelsRaw = ["Custom Software Development", "Hardware Procure. (10 Units)", "On-site Ops & Networking", "Buffer & Contingency"];
+        const donutLabels = donutLabelsRaw.map(wrapLabel);
+
+        const ctxDonut = document.getElementById('budgetDonutChart').getContext('2d');
+        new Chart(ctxDonut, {
+            type: 'doughnut',
+            data: {
+                labels: donutLabels,
+                datasets: [{
+                    data: [75000, 15000, 10000, 5000],
+                    backgroundColor: [
+                        '#8B5CF6',
+                        '#06B6D4',
+                        '#EC4899',
+                        '#334155'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                ...commonTooltipConfig,
+                cutout: '70%',
+                plugins: {
+                    ...commonTooltipConfig.plugins,
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#94A3B8', font: { size: 11, family: 'Inter' }, padding: 15 }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
